@@ -29,7 +29,7 @@ class AddTranslation
     
     variable_str = (variables.size > 0) ? (', ' + variables.join(', ')) : ''
     
-    print "=t('.#{@token_key}'#{variable_str})"
+    print "t(:#{@token_key}#{variable_str})"
   end
   
   # Ask the user for the token they want to use for this key
@@ -47,8 +47,10 @@ class AddTranslation
 
     # Remove partial _ and extensions from file url, or url
     if file
-      file.gsub!('.html.erb', '')
-      file.gsub!(/^[_]/, '')
+      # file.gsub!('.html.erb', '')
+      # file.gsub!('.html.haml', '')
+      # file.gsub!(/^[_]/, '')
+      file = file.split('.').shift
     else
       # If controller
       controller.gsub!('.rb', '')
