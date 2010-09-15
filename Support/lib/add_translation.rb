@@ -11,6 +11,21 @@ require ENV["TM_BUNDLE_SUPPORT"] + "/lib/bundle_config"
 require 'rubygems'
 require 'yaml'
 
+class Hash
+  # Replacing the to_yaml function so it'll serialize hashes sorted (by their keys)
+  #
+  # Original function is in /usr/lib/ruby/1.8/yaml/rubytypes.rb
+  def to_yaml( opts = {} )
+    YAML::quick_emit( object_id, opts ) do |out|
+      out.map( taguri, to_yaml_style ) do |map|
+        sort.each do |k, v|   # <-- here's my addition (the 'sort')
+          map.add( k, v )
+        end
+      end
+    end
+  end
+end
+
 class AddTranslation
   def initialize
     @selected_text = ENV['TM_SELECTED_TEXT']
