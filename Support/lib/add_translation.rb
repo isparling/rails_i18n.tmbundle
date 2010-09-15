@@ -22,10 +22,14 @@ class AddTranslation
 
     # Print so the results are added back into textmate
     variables = []
-    @selected_text.scan(/\{\{(.*?)\}\}/).flatten.each do |variable|
-      variable.gsub!(/\s/, '_')
+    new_text = @selected_text.dup
+    @selected_text.scan(/#\{(.*?)\}/).flatten.each do |variable|
+      #variable.gsub!(/\s/, '_')
+      #naive assumption
+      new_text.gsub!(/#{variable}/, "{{#{variable}}}")
       variables << ":#{variable} => #{variable}"
     end
+    @selected_text = new_text
     
     variable_str = (variables.size > 0) ? (', ' + variables.join(', ')) : ''
     
@@ -53,7 +57,7 @@ class AddTranslation
       file = file.split('.').shift
     else
       # If controller
-      controller.gsub!('.rb', '')
+      controller.gsub!('_controller.rb', '')
     end
 
     default_locale = YAML::load(File.open($default_locale_file).read)
