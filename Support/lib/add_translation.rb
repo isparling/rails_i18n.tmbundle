@@ -33,7 +33,7 @@ class AddTranslation
     
     get_token_key
     
-    add_to_locale
+    
 
     # Print so the results are added back into textmate
     variables = []
@@ -41,10 +41,12 @@ class AddTranslation
     @selected_text.scan(/#\{(.*?)\}/).flatten.each do |variable|
       #variable.gsub!(/\s/, '_')
       #naive assumption
-      new_text.gsub!(/#{variable}/, "{{#{variable}}}")
+      new_text.gsub!(/#\{#{variable}\}/, "{{#{variable}}}")
       variables << ":#{variable} => #{variable}"
     end
     @selected_text = new_text
+    
+    add_to_locale
     
     variable_str = (variables.size > 0) ? (', ' + variables.join(', ')) : ''
     
