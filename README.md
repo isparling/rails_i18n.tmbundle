@@ -2,6 +2,7 @@
 by Ryan Stout
 http://www.agileproductions.com/
 
+extended by Isaac Sparling & Geoff Hichborn
 ## About ##
 
 I did fine another Rails bundle that had i18n helpers, but none of them worked how I wanted them to, so I started over.
@@ -38,7 +39,7 @@ The yml files dumped out of this bundle should be in UTF-8.  In the event you ge
 
 Select a section of text and hit CMD+SHIFT+I, this will then ask you for the token that identifies this string.  By default the bundle will use the controller and view as prefixes on the location of the string.  A shortcut for this is in rails a . in-front of the token, which will be automatically inserted before the token.  So inserted tokens will look like:
 
-	<%= t('.your_token') %>
+	t('.your_token')
 
 ### Calculate Cost ###
 

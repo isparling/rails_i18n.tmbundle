@@ -50,7 +50,7 @@ class AddTranslation
     
     variable_str = (variables.size > 0) ? (', ' + variables.join(', ')) : ''
     
-    print "t(:#{@token_key}#{variable_str})"
+    print "= t(:#{@token_key}#{variable_str})"
   end
   
   # Ask the user for the token they want to use for this key
