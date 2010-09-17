@@ -55,7 +55,9 @@ class AddTranslation
   
   # Ask the user for the token they want to use for this key
   def get_token_key
-    @token_key = TextMate.input("Text Key (by default uses controller.view.{your key})", '')
+    default_text = @selected_text.downcase.gsub(" ","_").gsub(/\W/, "").split("_")[0..4].join("_")
+    
+    @token_key = TextMate.input("Text Key (by default uses controller.view.{your key})", "#{default_text}")
 
     if !@token_key
       print @selected_text
