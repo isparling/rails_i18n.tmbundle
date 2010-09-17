@@ -18,7 +18,7 @@
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>scope</key>
-	<string>text.html.ruby, source.ruby.rails.embedded.html, meta.rails.controller, meta.rails.model, meta.rails.unit_test, meta.rails.functional_test, text.haml</string>
+	<string>text.html.ruby, source.ruby.rails.embedded.html, meta.rails.controller, meta.rails.helper, meta.rails.model, meta.rails.unit_test, meta.rails.functional_test, text.haml</string>
 	<key>uuid</key>
 	<string>46A50FB1-0B6D-43BE-81AA-A1CE1B8C605B</string>
 </dict>

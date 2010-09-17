@@ -72,9 +72,11 @@ class AddTranslation
       # file.gsub!('.html.haml', '')
       # file.gsub!(/^[_]/, '')
       file = file.split('.').shift
-    else
+    elsif controller =~ /_controller\.rb/
       # If controller
       controller.gsub!('_controller.rb', '')
+    elsif controller =~ /_helper\.rb/
+      controller.gsub!('_helper.rb','')
     end
 
     default_locale = YAML::load(File.open($default_locale_file).read)
