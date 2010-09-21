@@ -5,10 +5,9 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"${TM_RUBY:=ruby}" -- "${TM_BUNDLE_SUPPORT}/lib/add_translation.rb"
-</string>
+	<string>"${TM_RUBY:=ruby}" -- "${TM_BUNDLE_SUPPORT}/lib/add_translation.rb"</string>
 	<key>fallbackInput</key>
-	<string>none</string>
+	<string>line</string>
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>

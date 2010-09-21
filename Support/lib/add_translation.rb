@@ -28,8 +28,9 @@ end
 
 class AddTranslation
   def initialize
-    @selected_text = ENV['TM_SELECTED_TEXT']
+    @selected_text = ENV['TM_SELECTED_TEXT'] || ''
     @path = ENV['TM_FILEPATH']
+    @line = ENV['TM_CURRENT_LINE']
     
     get_token_key
     
@@ -55,12 +56,19 @@ class AddTranslation
   
   # Ask the user for the token they want to use for this key
   def get_token_key
-    default_text = @selected_text.downcase.gsub(" ","_").gsub(/\W/, "").split("_")[0..4].join("_")
+    if @selected_text.empty?
+      @default_text = ENV['TM_CURRENT_LINE'].strip
+      @selected_text = ENV['TM_CURRENT_LINE']
+      did_select_text = false
+    else
+      @default_text = @selected_text.downcase.gsub(" ","_").gsub(/\W/, "").split("_")[0..4].join("_")
+      did_select_text = true
+    end
     
-    @token_key = TextMate.input("Text Key (by default uses controller.view.{your key})", "#{default_text}")
+    @token_key = TextMate.input("Text Key (by default uses controller.view.{your key})", @default_text)
 
     if !@token_key
-      print @selected_text
+      print did_select_text ? @selected_text : ENV['TM_CURRENT_LINE']
       exit
     end
   end
@@ -113,7 +121,7 @@ class AddTranslation
       TextMate.exit_discard
       return
     else
-      last_section[last_part][final_key] = @selected_text
+      last_section[last_part][final_key] = "#{@selected_text}"
     end
 
     # Dump into the english locale
