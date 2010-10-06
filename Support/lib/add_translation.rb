@@ -73,30 +73,17 @@ class AddTranslation
     end
   end
 
-  def add_to_locale
-    controller, file = @path.split(/\//)[-2..-1]
-
-    # Remove partial _ and extensions from file url, or url
-    if file
-      # file.gsub!('.html.erb', '')
-      # file.gsub!('.html.haml', '')
-      # file.gsub!(/^[_]/, '')
-      file = file.split('.').shift
-    elsif controller =~ /_controller\.rb/
-      # If controller
-      controller.gsub!('_controller.rb', '')
-    elsif controller =~ /_helper\.rb/
-      controller.gsub!('_helper.rb','')
-    end
+  def add_to_locale    
+    path_parts = @path.split(/\//)
+    
+    token_parts = @token_key.split('.')
+    
+    path_parts[-1] = path_parts.last.split('.').shift.gsub(/_controller|_helper/,'')
+    
+    token_parts.unshift(path_parts.pop) until path_parts.last == 'app'
 
     default_locale = YAML::load(File.open($default_locale_file).read)
 
-    # Split token into sections
-    token_parts = @token_key.split('.')
-    
-    # Add file controller and language
-    token_parts.unshift(file) if file
-    token_parts.unshift(controller)
     token_parts.unshift('en')
 
     # Pop the last key of the token
