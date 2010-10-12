@@ -31,11 +31,13 @@ class AddTranslation
     @selected_text = ENV['TM_SELECTED_TEXT'] || ''
     @path = ENV['TM_FILEPATH']
     @line = ENV['TM_CURRENT_LINE']
+    path_parts = @path.split(/\//)
+    path_parts[-1] = path_parts.last.split('.').shift.gsub(/_controller|_helper/,'')
+    @path_parts = []
+    @path_parts.unshift(path_parts.pop) until path_parts.last == 'app'
     
     get_token_key
     
-    
-
     # Print so the results are added back into textmate
     variables = []
     new_text = @selected_text.dup
@@ -65,7 +67,7 @@ class AddTranslation
       did_select_text = true
     end
     
-    @token_key = TextMate.input("Text Key (by default uses controller.view.{your key})", @default_text)
+    @token_key = TextMate.input("Text Key (will be #{@path_parts.join('.')}.{your key})", @default_text)
 
     if !@token_key
       print did_select_text ? @selected_text : ENV['TM_CURRENT_LINE']
@@ -74,13 +76,8 @@ class AddTranslation
   end
 
   def add_to_locale    
-    path_parts = @path.split(/\//)
-    
     token_parts = @token_key.split('.')
-    
-    path_parts[-1] = path_parts.last.split('.').shift.gsub(/_controller|_helper/,'')
-    
-    token_parts.unshift(path_parts.pop) until path_parts.last == 'app'
+    token_parts.unshift(@path_parts.pop) until @path_parts.empty?
 
     default_locale = YAML::load(File.open($default_locale_file).read)
 
