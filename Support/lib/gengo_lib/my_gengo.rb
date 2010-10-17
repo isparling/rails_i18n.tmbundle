@@ -1,8 +1,4 @@
 require 'rubygems'
-
-# Fix a bug loading active_support from textmate
-# Object.send(:remove_const, :Builder)# if defined?(Builder)
-
 require 'active_support'
 require 'httparty'
 require 'cgi'
