@@ -31,18 +31,18 @@ To Install:
 ### Add to locale ###
 
 Select a section of text and hit CMD+SHIFT+I, this will then ask you for the token that identifies this string.  
-By default the bundle will bulid create token according to the position of file. So inserted tokens will look like examples below:
+By default the bundle will build create token according to the position of file. So inserted tokens will look like examples below:
 
 	t('views.admin.users.new.your_token') or t('controllers.admin.users.new.your_token')
 
 ### Edit translation ###
 
 Select a token key and hit CMD+SHIFT+E, this will try to find a text associated to the token. 
-Will show a box with translated text, where you can easly edit translation. 
+Will show a box with translated text, where you can easily edit translation. 
 
 ### Edit config ###
   
-Select form bundle menu "Edit config" it will open config.yml where you can change defaults settings
+Select from bundle menu "Edit config" it will open config.yml where you can change defaults settings
 
 ### Calculate Cost ###
 
@@ -50,7 +50,7 @@ The bundle has support for mygengo.com translation api. Clicking on the calculat
 
 ### Translate strings to language ###
 
-Select form bundle menu "Translate strings to language" will ask you what locale you want to translate the default locale into.  You will then be asked how you want to translate the locale.  It will then loop through every string and translate the strings using the selected service.  Strings with existing translations will not be translated.
+Select from bundle menu "Translate strings to language" will ask you what locale you want to translate the default locale into.  You will then be asked how you want to translate the locale.  It will then loop through every string and translate the strings using the selected service.  Strings with existing translations will not be translated.
 
 If you use google translate, translations will come back immediately.
 
@@ -61,9 +61,12 @@ If you use *MyGengo.com*, you will be asked if you want translation jobs to be a
 ## Issues ##
 
 Please notice me if you find any :)
-PS. I did a huge refactor. I didn't checked a MyGengo service because I'm not useing it.
+
+PS. I did a huge code refactoring. 
+
+I didn't check MyGengo service because I'm not using it.
 
 ### TODO ###
 
-Any comments, suggestions, pull request are welcome!
+Any comments, suggestions, pull requests are welcome!
  
