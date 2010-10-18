@@ -6,14 +6,9 @@ class AddTranslation
     @selected_text = ENV['TM_SELECTED_TEXT'].to_s.strip
     @path_parts = ENV['TM_FILEPATH'].split('app/').last.split('/')
     @path_parts.last.gsub!(/_controller|_helper|\..*/,'') 
-    set_tokens    
-    if @token_key.present?
-      add_to_locale    
-      print "t('#{@token}')"
-    else
-      print(@selected_text ? ENV['TM_SELECTED_TEXT'] : ENV['TM_CURRENT_LINE'])
-      TextMate.exit_discard   
-    end
+    @vars = []
+    set_tokens
+    print_output
   end
   
   # Ask the user for the token they want to use for this key
@@ -22,6 +17,25 @@ class AddTranslation
     @token_key = TextMate.input("Text Key (will be #{@path_parts.join('.')}.{your key})", @default_text) if @selected_text.present?
     @token_key = @token_key.to_s.strip
     @token = "#{@path_parts.join('.')}.#{@token_key}" 
+  end 
+  
+  def set_vars
+    @selected_text = @selected_text.gsub(/#\{([^}]+)\}/) do |match|
+      var_name = $1.parameterize('_')
+      @vars << ":#{var_name} => #{$1}"
+      "%{#{var_name}}" 
+    end
+  end  
+  
+  def print_output
+    if @token_key.present?
+      set_vars
+      add_to_locale
+      print (@vars.present? ? "t('#{@token}', #{@vars.join(', ')})" : "t('#{@token}')")
+    else
+      print(@selected_text ? ENV['TM_SELECTED_TEXT'] : ENV['TM_CURRENT_LINE'])
+      TextMate.exit_discard   
+    end
   end
 
   def add_to_locale    
