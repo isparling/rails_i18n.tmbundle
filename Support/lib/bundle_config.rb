@@ -15,7 +15,7 @@ end
 
 class String 
   def strip
-    self.gsub(/\A\s*["']|["']\s*\z/,'') 
+    self.gsub(/\A\s*["']?|["']?\s*\z/,'') 
   end
 end
 
