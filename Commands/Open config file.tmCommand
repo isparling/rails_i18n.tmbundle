@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>mate "$TM_BUNDLE_SUPPORT/config/config.yml"</string>
+	<key>input</key>
+	<string>none</string>
+	<key>name</key>
+	<string>Open config file</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>uuid</key>
+	<string>032C500C-1530-426C-812B-6F2FDFD8056D</string>
+</dict>
+</plist>

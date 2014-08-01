@@ -1,17 +1,13 @@
 require ENV["TM_BUNDLE_SUPPORT"] + "/lib/text_mate"
-require 'rubygems'
-require 'yaml'
-require 'active_support'
 require ENV["TM_BUNDLE_SUPPORT"] + "/lib/bundle_config"
 require ENV["TM_BUNDLE_SUPPORT"] + "/lib/gengo_lib/my_gengo"
 
-
 class PullTranslations
   def initialize
-    @mygengo = MyGengo.new($mygengo_api_key, $mygengo_private_key)
+    @mygengo = MyGengo.new(BUNDLE_CONFIG.mygengo_api_key, BUNDLE_CONFIG.mygengo_private_key)
     
     # Loads all locales except the default
-    Dir[ENV["TM_PROJECT_DIRECTORY"] + '/config/locales/**.yml'].reject {|f| f =~ /#{$default_locale}.yml$/ }.each do |locale_file|
+    Dir[ENV["TM_PROJECT_DIRECTORY"] + '/config/locales/**.yml'].reject {|f| f =~ /#{BUNDLE_CONFIG.default_locale}.yml$/ }.each do |locale_file|
       # Load locale
       locale_obj = YAML::load(File.open(locale_file).read)
       
@@ -20,7 +16,7 @@ class PullTranslations
       
       # Write back out
       File.open(locale_file, 'w') do |f|
-        f.write(locale_obj.to_yaml)
+        f.write(locale_obj.ya2yaml)
       end
     end 
   end

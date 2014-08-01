@@ -1,15 +1,10 @@
 require ENV["TM_BUNDLE_SUPPORT"] + "/lib/text_mate"
 require ENV["TM_BUNDLE_SUPPORT"] + "/lib/bundle_config"
-require 'rubygems'
-require 'yaml'
-
 
 class CalculateCost
   def initialize
-    @default_locale = YAML::load(File.open($default_locale_file).read)['en']
-
     # Loop through the current locale and count the number of words
-    total_words = process(@default_locale)
+    total_words = process(BUNDLE_CONFIG.default_locale_content)
     
     TextMate.textbox("Total words: #{total_words}", "Cost on Google Translate: \\$0\nCost on myGengo into one other language:\n\tStandard: \\$#{total_words * 0.05}\n\tPro: \\$#{total_words * 0.10}\n\tUltra: \\$#{total_words * 0.15}")
   end
